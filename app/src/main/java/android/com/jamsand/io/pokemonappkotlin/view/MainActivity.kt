@@ -38,7 +38,8 @@ class MainActivity : AppCompatActivity() {
         adapter = PokemonAdapter(OnClickListener { pokemon ->
 
             loadPokemonDetailsActivity(pokemon.name,pokemon.pokemonID)
-            Toast.makeText(applicationContext, "${pokemon.pokemonID}", Toast.LENGTH_SHORT).show() })
+            Toast.makeText(applicationContext, "${pokemon.name}",
+                Toast.LENGTH_SHORT).show() })
 
         viewModel = ViewModelProvider(this,
             PokemonViewModelFactory(PokemonRepository(retrofitService))
