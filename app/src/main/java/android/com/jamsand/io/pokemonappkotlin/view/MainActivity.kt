@@ -7,6 +7,7 @@ import android.com.jamsand.io.pokemonappkotlin.adapter.PokemonAdapter
 import android.com.jamsand.io.pokemonappkotlin.databinding.ActivityMainBinding
 import android.com.jamsand.io.pokemonappkotlin.network.ApiService
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
+import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON_ID
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -35,11 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun init(){
         adapter = PokemonAdapter(OnClickListener { pokemon ->
-            val productIntent = Intent(this, PokemonDetails::class.java)
-            productIntent.putExtra(EXTRA_POKEMON, pokemon.name)
-            startActivity(productIntent)
 
-            Toast.makeText(applicationContext, "${pokemon.name}", Toast.LENGTH_SHORT).show() })
+            loadPokemonDetailsActivity(pokemon.name,pokemon.pokemonID)
+            Toast.makeText(applicationContext, "${pokemon.pokemonID}", Toast.LENGTH_SHORT).show() })
 
         viewModel = ViewModelProvider(this,
             PokemonViewModelFactory(PokemonRepository(retrofitService))
@@ -49,6 +48,13 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerview.adapter = adapter
     }
 
+    private fun loadPokemonDetailsActivity(name:String,pokemonID: Int ){
+        val pokemonIntent = Intent(this, PokemonDetails::class.java)
+        pokemonIntent.putExtra(EXTRA_POKEMON_ID, pokemonID)
+        pokemonIntent.putExtra(EXTRA_POKEMON, name)
+
+        startActivity(pokemonIntent)
+    }
     private fun getAllData(){
 
         viewModel.pokemonList.observe(this, Observer {

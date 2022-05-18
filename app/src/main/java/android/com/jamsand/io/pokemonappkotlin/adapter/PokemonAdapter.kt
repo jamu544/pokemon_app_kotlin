@@ -27,8 +27,9 @@ class PokemonAdapter (private val onClickListener: OnClickListener):
     override fun onBindViewHolder(holder: PokemonHolder, position: Int){
         val pokemon = pokemons[position]
         holder.binding.pokemonName.text = pokemon.name
-        holder.itemView.setOnClickListener { onClickListener.onClick(pokemon) }
-        
+        pokemon.pokemonID = position
+        holder.itemView.setOnClickListener { onClickListener.onClick(pokemon,pokemon.pokemonID) }
+
 //        Glide.with(holder.itemView.context).load(pokemon.url).
 //        into(holder.binding.imageViewThumbnail)
 //        Picasso.with(holder.binding.root.context)
