@@ -35,6 +35,8 @@ android {
 }
 
 dependencies {
+    //Picassp
+    implementation 'com.squareup.picasso:picasso:2.4.0'
     //ViewModel and livedata
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     //Glide

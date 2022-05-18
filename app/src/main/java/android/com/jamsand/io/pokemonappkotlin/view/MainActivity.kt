@@ -1,15 +1,12 @@
-package android.com.jamsand.io.pokemonappkotlin.activity
+package android.com.jamsand.io.pokemonappkotlin.view
 
-import android.com.jamsand.io.pokemonappkotlin.MainRepository
-import android.com.jamsand.io.pokemonappkotlin.MainViewModel
-import android.com.jamsand.io.pokemonappkotlin.MyViewModelFactory
-import android.com.jamsand.io.pokemonappkotlin.R
+import android.com.jamsand.io.pokemonappkotlin.repository.PokemonRepository
+import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonViewModel
+import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonViewModelFactory
 import android.com.jamsand.io.pokemonappkotlin.adapter.PokemonAdapter
 import android.com.jamsand.io.pokemonappkotlin.databinding.ActivityMainBinding
-import android.com.jamsand.io.pokemonappkotlin.model.Pokemon
-import android.com.jamsand.io.pokemonappkotlin.network.RetrofitService
+import android.com.jamsand.io.pokemonappkotlin.network.ApiService
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,29 +14,43 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
-    private val retrofitService = RetrofitService.getInstance()
-    val adapter = PokemonAdapter()
+    private lateinit var viewModel: PokemonViewModel
+    private val retrofitService = ApiService.getInstance()
+   // val adapter = PokemonAdapter()
+    private lateinit var adapter:PokemonAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        init()
+        getAllData()
+
+    }
+
+    private fun init(){
+        adapter = PokemonAdapter(OnClickListener { pokemon ->
+            val productIntent = Intent(this, PokemonDetails::class.java)
+            productIntent.putExtra(EXTRA_POKEMON, pokemon.name)
+            startActivity(productIntent)
+
+            Toast.makeText(applicationContext, "${pokemon.name}", Toast.LENGTH_SHORT).show() })
+
         viewModel = ViewModelProvider(this,
-            MyViewModelFactory(MainRepository(retrofitService))).get(MainViewModel::class.java)
+            PokemonViewModelFactory(PokemonRepository(retrofitService))
+        ).get(PokemonViewModel::class.java)
 
 
         binding.recyclerview.adapter = adapter
+    }
+
+    private fun getAllData(){
+
         viewModel.pokemonList.observe(this, Observer {
             Log.d(TAG,"onCreate: $it")
             adapter.setPokemonList(it)
@@ -53,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
 
 //    private fun getAllData() {
-//        val pokemonApi = RetrofitService.create().getPokemons()
+//        val pokemonApi = ApiService.create().getPokemons()
 //        pokemonApi.enqueue( object : Callback<Pokemon> {
 //            override fun onResponse(call: Call<Pokemon>?, response: Response<Pokemon>?) {
 //

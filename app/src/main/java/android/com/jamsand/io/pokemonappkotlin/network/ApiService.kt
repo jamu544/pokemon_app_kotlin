@@ -7,19 +7,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-interface RetrofitService {
+interface ApiService {
 
     @GET("https://pokeapi.co/api/v2/pokemon/")
+//    fun getPokemons(): Call<MutableList<Pokemon>>
      fun getPokemons(): Call<Pokemon>
     companion object {
-        var retrofitService: RetrofitService? = null
-        fun getInstance() : RetrofitService {
+        var retrofitService: ApiService? = null
+        fun getInstance() : ApiService {
             if(retrofitService == null) {
                 val retrofit = Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(BASE_URL)
                     .build()
-                retrofitService = retrofit.create(RetrofitService::class.java)
+                retrofitService = retrofit.create(ApiService::class.java)
             }
             return retrofitService!!
 

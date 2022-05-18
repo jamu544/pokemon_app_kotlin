@@ -1,4 +1,4 @@
-package android.com.jamsand.io.pokemonappkotlin.activity
+package android.com.jamsand.io.pokemonappkotlin.view
 
 import android.com.jamsand.io.pokemonappkotlin.R
 import androidx.appcompat.app.AppCompatActivity

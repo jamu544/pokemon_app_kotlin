@@ -1,20 +1,15 @@
-package android.com.jamsand.io.pokemonappkotlin
+package android.com.jamsand.io.pokemonappkotlin.viewmodel
 
-import android.com.jamsand.io.pokemonappkotlin.activity.PokemonDetails
-import android.com.jamsand.io.pokemonappkotlin.adapter.PokemonAdapter
 import android.com.jamsand.io.pokemonappkotlin.model.Pokemon
-import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
-import android.content.Intent
+import android.com.jamsand.io.pokemonappkotlin.repository.PokemonRepository
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel constructor(private val repository: MainRepository):
+class PokemonViewModel constructor(private val repository: PokemonRepository):
 ViewModel(){
 
     val pokemonList = MutableLiveData<List<Pokemon.PokemonArray>>()
