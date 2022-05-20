@@ -20,14 +20,14 @@
         <TextView
             android:id="@+id/pokemonTitleTextView"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pokemon_hollow"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:text="@string/pokemons"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="50sp"
             app:layout_constraintBaseline_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

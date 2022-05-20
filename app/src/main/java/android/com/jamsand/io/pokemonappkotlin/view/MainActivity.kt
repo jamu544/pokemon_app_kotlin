@@ -9,6 +9,7 @@ import android.com.jamsand.io.pokemonappkotlin.network.PokemonListApiService
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON_ID
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,6 +36,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init(){
+        // Create a TypeFace using the font file
+        val typeface = Typeface.createFromAsset(assets, "pokemon_solid.ttf")
+
+        binding.pokemonTitleTextView.typeface = typeface
         adapter = PokemonAdapter(OnClickListener { pokemon ->
 
             loadPokemonDetailsActivity(pokemon.name,pokemon.pokemonID)
