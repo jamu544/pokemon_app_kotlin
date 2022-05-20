@@ -1,6 +1,8 @@
 package android.com.jamsand.io.pokemonappkotlin.viewmodel
 
+import android.com.jamsand.io.pokemonappkotlin.model.Details
 import android.com.jamsand.io.pokemonappkotlin.model.Pokemon
+import android.com.jamsand.io.pokemonappkotlin.network.PokemonDetailsApiService
 import android.com.jamsand.io.pokemonappkotlin.repository.PokemonRepository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PokemonViewModel constructor(private val repository: PokemonRepository):
+class PokemonListViewModel constructor(private val repository: PokemonRepository):
 ViewModel(){
 
     val pokemonList = MutableLiveData<List<Pokemon.PokemonArray>>()
@@ -22,8 +24,6 @@ ViewModel(){
                 if(response?.isSuccessful!= null) {
 
                     pokemonList.postValue(response.body()?.results)
-                    // recyclerAdapter.setMovieListItems(response.body()!!)
-                    Log.d("VIEW MODEL", response.body()!!.results.toString())
                 }
             }
 
@@ -35,4 +35,5 @@ ViewModel(){
             }
         })
     }
+
 }

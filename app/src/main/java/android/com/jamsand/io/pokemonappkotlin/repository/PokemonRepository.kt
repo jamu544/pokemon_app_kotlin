@@ -1,9 +1,9 @@
 package android.com.jamsand.io.pokemonappkotlin.repository
 
-import android.com.jamsand.io.pokemonappkotlin.network.ApiService
+import android.com.jamsand.io.pokemonappkotlin.network.PokemonListApiService
 
-class PokemonRepository constructor(private val retrofitService: ApiService){
+class PokemonRepository constructor(private val retrofitServicePokemonList: PokemonListApiService){
 
-    fun getAllPokemons () = retrofitService.getPokemons()
+    fun getAllPokemons () = retrofitServicePokemonList.getPokemons()
 
 }
