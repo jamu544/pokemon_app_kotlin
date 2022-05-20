@@ -107,11 +107,12 @@ class PokemonDetailsActivity : AppCompatActivity() {
                     binding.heightTextView.text ="Height: ${response.body()?.height.toString()} cm"
                     binding.weightTextView.text = "Weight: ${response.body()?.weight} kg"
                  //   binding.typeTextView.text = "Types: "+response.body()?.types
-                    val typesBuilder = StringBuilder()
-                    for (types in response.body()?.types!!) {
-                        typesBuilder.append(types.type.name)
+
+                    val listOftypes = ArrayList<String>()
+                    for(types in response.body()?.types!!){
+                        listOftypes.add(types.type.name)
                     }
-                    binding.typeTextView.text = "Types: $typesBuilder "
+                    binding.typeTextView.text = "Types: ${listOftypes.toString()} "
 
 
                 }
