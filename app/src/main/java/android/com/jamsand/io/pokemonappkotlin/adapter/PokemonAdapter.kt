@@ -25,12 +25,12 @@ class PokemonAdapter (private val onClickListener: OnClickListener):
     }
 
     override fun onBindViewHolder(holder: PokemonHolder, position: Int){
-        val pokemon = pokemons[position]
+        val pokemon = pokemons.get(position)
         holder.binding.pokemonName.text = pokemon.name
-        pokemon.pokemonID = position
+        pokemon.pokemonID = position+1
         holder.itemView.setOnClickListener { onClickListener.onClick(pokemon,pokemon.pokemonID) }
 
-        Glide.with(holder.itemView.context).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$position.png").
+        Glide.with(holder.itemView.context).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.pokemonID}.png").
         into(holder.binding.imageViewThumbnail)
 
     }
