@@ -17,8 +17,8 @@ class PokemonDetailsViewModel constructor(private val repository: PokemonDetails
     val pokemonDetails = MutableLiveData<Details>()
     val errorMessage = MutableLiveData<String>()
 
-    fun getPokemonDetails(id: Int){
-        val response = repository.getPokemonDetails(id)
+    fun getPokemonDetails(name: String){
+        val response = repository.getPokemonDetails(name)
         response.enqueue( object : Callback<Details> {
 
             override fun onResponse(call: Call<Details>, response: Response<Details>) {

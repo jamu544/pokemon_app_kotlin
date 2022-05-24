@@ -5,6 +5,6 @@ import android.com.jamsand.io.pokemonappkotlin.network.PokemonDetailsApiService
 class PokemonDetailsRepository constructor(private val
                              retrofitServicePokemonDetails: PokemonDetailsApiService){
 
-    fun getPokemonDetails (id:Int) = retrofitServicePokemonDetails.getPokemonDetails(0)
+    fun getPokemonDetails (name:String) = retrofitServicePokemonDetails.getPokemonDetails("")
 
 }

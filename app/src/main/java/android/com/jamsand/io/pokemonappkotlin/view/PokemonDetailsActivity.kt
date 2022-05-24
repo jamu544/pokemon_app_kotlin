@@ -55,7 +55,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
         setWidgets()
        // observePokemonDetailsData(1)
 
-        getPokemonDetails(pokemonID)
+        getPokemonDetails(pokemonName)
     }
 
     private fun setWidgets(){
@@ -71,8 +71,8 @@ class PokemonDetailsActivity : AppCompatActivity() {
             PokemonDetailsViewModelFactory(PokemonDetailsRepository(retrofitService))
         ).get(PokemonDetailsViewModel::class.java)
     }
-    private fun observePokemonDetailsData(id:Int){
-        pokemonDetailsViewModel.getPokemonDetails(id)
+    private fun observePokemonDetailsData(name:String){
+        pokemonDetailsViewModel.getPokemonDetails(name)
         pokemonDetailsViewModel.pokemonDetails.observe(this, Observer {
 
             Log.d(TAG,"New onCreate: ${it.name}")
@@ -92,9 +92,9 @@ class PokemonDetailsActivity : AppCompatActivity() {
 //        listViewModel.getAllPokemons()
     }
 
-    private fun getPokemonDetails(id: Int){
+    private fun getPokemonDetails(name: String){
 
-        val apiInterface = PokemonDetailsApiService.getInstance().getPokemonDetails(id)
+        val apiInterface = PokemonDetailsApiService.getInstance().getPokemonDetails(name)
         apiInterface.enqueue( object : Callback<Details>{
 
             override fun onResponse(call: Call<Details>, response: Response<Details>) {

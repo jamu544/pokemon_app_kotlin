@@ -30,11 +30,9 @@ class PokemonAdapter (private val onClickListener: OnClickListener):
         pokemon.pokemonID = position
         holder.itemView.setOnClickListener { onClickListener.onClick(pokemon,pokemon.pokemonID) }
 
-//        Glide.with(holder.itemView.context).load(pokemon.url).
-//        into(holder.binding.imageViewThumbnail)
-//        Picasso.with(holder.binding.root.context)
-//            .load("https://pokeapi.co/api/v2/pokemon/1/")
-//            .into(holder.binding.imageViewThumbnail)
+        Glide.with(holder.itemView.context).load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$position.png").
+        into(holder.binding.imageViewThumbnail)
+
     }
 
     override fun getItemCount(): Int {

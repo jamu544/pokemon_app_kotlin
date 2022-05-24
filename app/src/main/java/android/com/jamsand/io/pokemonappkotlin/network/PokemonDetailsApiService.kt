@@ -11,8 +11,8 @@ import retrofit2.http.Path
 
 interface PokemonDetailsApiService {
 
-    @GET("https://pokeapi.co/api/v2/pokemon/{id}")
-    fun getPokemonDetails(@Path("id") id: Int): Call<Details>
+    @GET("https://pokeapi.co/api/v2/pokemon/{name}")
+    fun getPokemonDetails(@Path("name") name: String): Call<Details>
 
     companion object {
         var retrofitServicePokemonDetails: PokemonDetailsApiService? = null

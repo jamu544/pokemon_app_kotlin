@@ -5,10 +5,14 @@ import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModel
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModelFactory
 import android.com.jamsand.io.pokemonappkotlin.adapter.PokemonAdapter
 import android.com.jamsand.io.pokemonappkotlin.databinding.ActivityMainBinding
+import android.com.jamsand.io.pokemonappkotlin.model.Pokemon
 import android.com.jamsand.io.pokemonappkotlin.network.PokemonListApiService
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON_ID
+import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonViewModel
+import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonViewModelFactory
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +20,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
@@ -46,9 +51,26 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "${pokemon.name}",
                 Toast.LENGTH_SHORT).show() })
 
+        // original code
         listViewModel = ViewModelProvider(this,
             PokemonListViewModelFactory(PokemonRepository(retrofitService))
         ).get(PokemonListViewModel::class.java)
+
+//        listViewModel = ViewModelProvider(this,PokemonViewModelFactory(this)
+//        ).get(PokemonViewModel::class.java)
+
+        var spanCount = 2
+        val orientation = resources.configuration.orientation
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            spanCount = 4
+        }
+        val screenSize = resources.configuration.screenWidthDp
+        if(screenSize > 720){
+            spanCount = 3
+        }
+
+        val layoutManager = GridLayoutManager(this,spanCount)
+        binding.recyclerview.layoutManager = layoutManager
 
 
         binding.recyclerview.adapter = adapter
@@ -61,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(pokemonIntent)
     }
     private fun observeResponseDataList(){
+        //original code
         listViewModel.pokemonList.observe(this, Observer {
             Log.d(TAG,"onCreate: $it")
             adapter.setPokemonList(it)
@@ -68,5 +91,15 @@ class MainActivity : AppCompatActivity() {
         listViewModel.errorMessage.observe(this, Observer {
         })
         listViewModel.getAllPokemons()
+//        listViewModel.getData().observe(this, object :Observer<List<Pokemon.PokemonArray>> {
+
+//            override fun onChanged(t: List<Pokemon.PokemonArray>?) {
+//                listUsers.clear()
+//                t?.let { listUsers.addAll(it) }
+//                adapter.notifyDataSetChanged()
+//            }
+
+ //       })
+
     }
 }

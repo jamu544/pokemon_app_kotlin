@@ -4,6 +4,7 @@ import android.com.jamsand.io.pokemonappkotlin.model.Details
 import android.com.jamsand.io.pokemonappkotlin.model.Pokemon
 import android.com.jamsand.io.pokemonappkotlin.network.PokemonDetailsApiService
 import android.com.jamsand.io.pokemonappkotlin.repository.PokemonRepository
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,21 +18,15 @@ ViewModel(){
     val pokemonList = MutableLiveData<List<Pokemon.PokemonArray>>()
     val errorMessage = MutableLiveData<String>()
 
+
     fun getAllPokemons (){
         val response = repository.getAllPokemons()
         response.enqueue (object : Callback<Pokemon> {
-            override fun onResponse(call: Call<Pokemon>?, response: Response<Pokemon>?) {
-                if(response?.isSuccessful!= null) {
-
+            override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
                     pokemonList.postValue(response.body()?.results)
-                }
             }
-
-            override fun onFailure(call: Call<Pokemon>?, t: Throwable?) {
-                if (t != null) {
+            override fun onFailure(call: Call<Pokemon>, t: Throwable) {
                     errorMessage.postValue(t.message)
-                }
-
             }
         })
     }

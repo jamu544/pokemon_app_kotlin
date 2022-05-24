@@ -11,6 +11,7 @@ interface PokemonListApiService {
 
     @GET("https://pokeapi.co/api/v2/pokemon/")
     fun getPokemons(): Call<Pokemon>
+
     companion object {
         var retrofitServicePokemonList: PokemonListApiService? = null
         fun getInstance() : PokemonListApiService {
