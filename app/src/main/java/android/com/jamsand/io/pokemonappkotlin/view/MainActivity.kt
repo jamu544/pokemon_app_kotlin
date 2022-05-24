@@ -5,15 +5,12 @@ import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModel
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModelFactory
 import android.com.jamsand.io.pokemonappkotlin.adapter.PokemonAdapter
 import android.com.jamsand.io.pokemonappkotlin.databinding.ActivityMainBinding
-import android.com.jamsand.io.pokemonappkotlin.model.Pokemon
 import android.com.jamsand.io.pokemonappkotlin.network.PokemonListApiService
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON_ID
 import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.hideProgressBar
 import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.isInternetAvailable
 import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.showProgressBar
-import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonViewModel
-import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonViewModelFactory
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -21,7 +18,6 @@ import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider

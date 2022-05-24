@@ -1,22 +1,13 @@
 package android.com.jamsand.io.pokemonappkotlin.view
 
-import android.com.jamsand.io.pokemonappkotlin.R
-import android.com.jamsand.io.pokemonappkotlin.databinding.ActivityMainBinding
 import android.com.jamsand.io.pokemonappkotlin.databinding.ActivityPokemonDetailsBinding
 import android.com.jamsand.io.pokemonappkotlin.model.Details
 import android.com.jamsand.io.pokemonappkotlin.network.PokemonDetailsApiService
-import android.com.jamsand.io.pokemonappkotlin.network.PokemonListApiService
-import android.com.jamsand.io.pokemonappkotlin.repository.PokemonDetailsRepository
-import android.com.jamsand.io.pokemonappkotlin.repository.PokemonRepository
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON_ID
 import android.com.jamsand.io.pokemonappkotlin.utilities.Utility
 import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.isInternetAvailable
 import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.showProgressBar
-import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonDetailsViewModel
-import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonDetailsViewModelFactory
-import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModel
-import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModelFactory
 import android.content.Context
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +27,6 @@ class PokemonDetailsActivity : AppCompatActivity() {
      var pokemonID:Int = 0
 
     private lateinit var binding: ActivityPokemonDetailsBinding
-    private lateinit var pokemonDetailsViewModel: PokemonDetailsViewModel
     private val retrofitService = PokemonDetailsApiService.getInstance()
     lateinit var context: Context
 
@@ -57,9 +47,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
 
             //check internet connection
         if(context.isInternetAvailable()) {
-            init()
             setWidgets()
-            // observePokemonDetailsData(1)
             getPokemonDetails(pokemonName)
         }
 
@@ -76,21 +64,6 @@ class PokemonDetailsActivity : AppCompatActivity() {
         return true
     }
 
-    private fun init(){
-        pokemonDetailsViewModel = ViewModelProvider(this,
-            PokemonDetailsViewModelFactory(PokemonDetailsRepository(retrofitService))
-        ).get(PokemonDetailsViewModel::class.java)
-    }
-    private fun observePokemonDetailsData(name:String){
-        pokemonDetailsViewModel.getPokemonDetails(name)
-        pokemonDetailsViewModel.pokemonDetails.observe(this, Observer {
-
-            Log.d(TAG,"New onCreate: ${it.name}")
-        })
-        pokemonDetailsViewModel.errorMessage.observe(this, Observer {
-//
-        })
-    }
 
     private fun getPokemonDetails(name: String){
 

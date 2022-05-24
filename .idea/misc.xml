@@ -7,7 +7,7 @@
         <entry key="app/src/main/res/drawable/image_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/img.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/activity_pokemon_details.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_pokemon_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/pokemon_list_item.xml" value="0.17447916666666666" />
       </map>
     </option>
