@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         listViewModel.errorMessage.observe(this, Observer {
             hideProgressBar()
         })
+        
         listViewModel.getAllPokemons()
 
     }

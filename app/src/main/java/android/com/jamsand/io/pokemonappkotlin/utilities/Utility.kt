@@ -60,7 +60,7 @@ object Utility {
         try {
             val layout = (this as? Activity)?.findViewById<View>(android.R.id.content)?.rootView as? ViewGroup
 
-            progressBar = ProgressBar(this, null, androidx.appcompat.R.attr.progressBarStyle)
+            progressBar = ProgressBar(this)
             progressBar?.let { it1 ->
                 it1.isIndeterminate = true
 
