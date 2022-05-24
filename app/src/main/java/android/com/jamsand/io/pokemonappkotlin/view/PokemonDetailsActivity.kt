@@ -1,5 +1,6 @@
 package android.com.jamsand.io.pokemonappkotlin.view
 
+import android.com.jamsand.io.pokemonappkotlin.R
 import android.com.jamsand.io.pokemonappkotlin.databinding.ActivityPokemonDetailsBinding
 import android.com.jamsand.io.pokemonappkotlin.model.Details
 import android.com.jamsand.io.pokemonappkotlin.network.PokemonDetailsApiService
@@ -37,7 +38,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
         context = this
 
         val actionbar = supportActionBar
-        actionbar!!.title = "Back"
+        actionbar!!.title = getString(R.string.action_bar_title)
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
 
@@ -55,7 +56,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
     }
 
     private fun setWidgets(){
-        val typeface = Typeface.createFromAsset(assets, "pokemon_solid.ttf")
+        val typeface = Typeface.createFromAsset(assets, getString(R.string.pokemon_font))
         binding.pokemonDetailsName.typeface = typeface
         binding.pokemonDetailsName.text = pokemonName
     }

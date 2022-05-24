@@ -36,7 +36,7 @@
         android:text="@string/language"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/yellow"
         app:layout_constraintLeft_toRightOf="@id/imageViewThumbnail"
         app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
