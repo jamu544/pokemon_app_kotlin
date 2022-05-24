@@ -9,14 +9,19 @@ import android.com.jamsand.io.pokemonappkotlin.model.Pokemon
 import android.com.jamsand.io.pokemonappkotlin.network.PokemonListApiService
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON_ID
+import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.hideProgressBar
+import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.isInternetAvailable
+import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.showProgressBar
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonViewModel
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonViewModelFactory
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,16 +32,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var listViewModel: PokemonListViewModel
     private val retrofitService = PokemonListApiService.getInstance()
+    private lateinit var context: Context
 
     private lateinit var adapter:PokemonAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        context = this
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        init()
-        observeResponseDataList()
+        if(context.isInternetAvailable()) {
+            init()
+            observeResponseDataList()
+        }
 
     }
 
@@ -51,13 +60,9 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "${pokemon.name}",
                 Toast.LENGTH_SHORT).show() })
 
-        // original code
         listViewModel = ViewModelProvider(this,
             PokemonListViewModelFactory(PokemonRepository(retrofitService))
         ).get(PokemonListViewModel::class.java)
-
-//        listViewModel = ViewModelProvider(this,PokemonViewModelFactory(this)
-//        ).get(PokemonViewModel::class.java)
 
         var spanCount = 2
         val orientation = resources.configuration.orientation
@@ -84,22 +89,18 @@ class MainActivity : AppCompatActivity() {
     }
     private fun observeResponseDataList(){
         //original code
+        context.showProgressBar()
         listViewModel.pokemonList.observe(this, Observer {
             Log.d(TAG,"onCreate: $it")
+
             adapter.setPokemonList(it)
+            hideProgressBar()
         })
         listViewModel.errorMessage.observe(this, Observer {
+            hideProgressBar()
         })
         listViewModel.getAllPokemons()
-//        listViewModel.getData().observe(this, object :Observer<List<Pokemon.PokemonArray>> {
-
-//            override fun onChanged(t: List<Pokemon.PokemonArray>?) {
-//                listUsers.clear()
-//                t?.let { listUsers.addAll(it) }
-//                adapter.notifyDataSetChanged()
-//            }
-
- //       })
 
     }
+
 }

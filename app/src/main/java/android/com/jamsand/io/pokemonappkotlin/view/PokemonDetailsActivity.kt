@@ -10,17 +10,19 @@ import android.com.jamsand.io.pokemonappkotlin.repository.PokemonDetailsReposito
 import android.com.jamsand.io.pokemonappkotlin.repository.PokemonRepository
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON_ID
+import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.showProgressBar
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonDetailsViewModel
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonDetailsViewModelFactory
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModel
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModelFactory
+import android.content.Context
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_pokemon_details.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,12 +36,13 @@ class PokemonDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPokemonDetailsBinding
     private lateinit var pokemonDetailsViewModel: PokemonDetailsViewModel
     private val retrofitService = PokemonDetailsApiService.getInstance()
+    lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPokemonDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        context = this
 
         val actionbar = supportActionBar
         actionbar!!.title = "Back"
@@ -59,7 +62,9 @@ class PokemonDetailsActivity : AppCompatActivity() {
     }
 
     private fun setWidgets(){
-        pokemonDetailsName.text = pokemonName
+        val typeface = Typeface.createFromAsset(assets, "pokemon_solid.ttf")
+        binding.pokemonDetailsName.typeface = typeface
+        binding.pokemonDetailsName.text = pokemonName
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -80,21 +85,12 @@ class PokemonDetailsActivity : AppCompatActivity() {
         pokemonDetailsViewModel.errorMessage.observe(this, Observer {
 //
         })
-      //  pokemonDetailsViewModel.getPokemonDetails(id)
-//        pokemonDetailsViewModel.pokemonList.observe(this, Observer {
-//            Log.d(TAG,"onCreate: $it")
-//            adapter.setPokemonList(it)
-//
-//        })
-//        listViewModel.errorMessage.observe(this, Observer {
-//
-//        })
-//        listViewModel.getAllPokemons()
     }
 
     private fun getPokemonDetails(name: String){
 
         val apiInterface = PokemonDetailsApiService.getInstance().getPokemonDetails(name)
+        context.showProgressBar()
         apiInterface.enqueue( object : Callback<Details>{
 
             override fun onResponse(call: Call<Details>, response: Response<Details>) {
@@ -106,7 +102,6 @@ class PokemonDetailsActivity : AppCompatActivity() {
 
                     binding.heightTextView.text ="Height: ${response.body()?.height.toString()} cm"
                     binding.weightTextView.text = "Weight: ${response.body()?.weight} kg"
-                 //   binding.typeTextView.text = "Types: "+response.body()?.types
 
                     val listOftypes = ArrayList<String>()
                     for(types in response.body()?.types!!){

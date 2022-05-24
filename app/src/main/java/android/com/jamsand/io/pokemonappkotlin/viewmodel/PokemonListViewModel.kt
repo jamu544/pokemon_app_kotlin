@@ -19,6 +19,7 @@ ViewModel(){
     val errorMessage = MutableLiveData<String>()
 
 
+
     fun getAllPokemons (){
         val response = repository.getAllPokemons()
         response.enqueue (object : Callback<Pokemon> {

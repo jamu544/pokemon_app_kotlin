@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="pokemon"
             type="android.com.jamsand.io.pokemonappkotlin.model.Pokemon.PokemonArray" />
@@ -26,35 +24,19 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:scaleType="fitCenter"
-       
         android:src="@mipmap/ic_launcher"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-<!--    <ImageView-->
-<!--        android:id="@+id/imageViewThumbnail"-->
-<!--        android:layout_width="40dp"-->
-<!--        android:src="@mipmap/ic_launcher"-->
-<!--        android:layout_height="40dp" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/pokemonName"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginLeft="15dp"-->
-<!--        android:text="Item"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textStyle="bold" />-->
-    <!--Text view for showing the language name-->
     <TextView
         android:id="@+id/pokemonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:text="Language"
-        android:textSize="16sp"
+        android:text="@string/language"
+        android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintLeft_toRightOf="@id/imageViewThumbnail"
         app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

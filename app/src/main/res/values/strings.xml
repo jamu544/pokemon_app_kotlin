@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">PokemonApp Kotlin</string>
     <string name="pokemons">Pokemons</string>
+    <string name="height">Height : 70cm</string>
+    <string name="weight">Weight</string>
+    <string name="types">Types: grass,poison</string>
+    <string name="language">Language</string>
+    <string name="name">Odwa</string>
 </resources>
