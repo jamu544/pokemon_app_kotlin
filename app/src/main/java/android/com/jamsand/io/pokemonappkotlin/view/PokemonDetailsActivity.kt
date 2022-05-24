@@ -10,6 +10,8 @@ import android.com.jamsand.io.pokemonappkotlin.repository.PokemonDetailsReposito
 import android.com.jamsand.io.pokemonappkotlin.repository.PokemonRepository
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON_ID
+import android.com.jamsand.io.pokemonappkotlin.utilities.Utility
+import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.isInternetAvailable
 import android.com.jamsand.io.pokemonappkotlin.utilities.Utility.showProgressBar
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonDetailsViewModel
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonDetailsViewModelFactory
@@ -53,12 +55,15 @@ class PokemonDetailsActivity : AppCompatActivity() {
         pokemonID = bundle.getInt(EXTRA_POKEMON_ID)
         pokemonName = bundle.get(EXTRA_POKEMON) as String
 
-        init()
 
-        setWidgets()
-       // observePokemonDetailsData(1)
+        if(context.isInternetAvailable()) {
+            init()
+            setWidgets()
+            // observePokemonDetailsData(1)
+            getPokemonDetails(pokemonName)
+        }
 
-        getPokemonDetails(pokemonName)
+
     }
 
     private fun setWidgets(){
@@ -95,6 +100,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<Details>, response: Response<Details>) {
                 if (response.isSuccessful){
+                    Utility.hideProgressBar()
                     Log.d(TAG, response.body().toString())
                     Glide.with(binding.imageView)
                         .load(response.body()?.sprites?.other?.home?.front_default)
@@ -116,6 +122,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<Details>, t: Throwable) {
+                Utility.hideProgressBar()
                 Log.d(TAG,"${t.message}")
             }
         })
