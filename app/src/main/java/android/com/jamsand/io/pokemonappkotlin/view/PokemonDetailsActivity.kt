@@ -55,7 +55,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
         pokemonID = bundle.getInt(EXTRA_POKEMON_ID)
         pokemonName = bundle.get(EXTRA_POKEMON) as String
 
-
+            //check internet connection
         if(context.isInternetAvailable()) {
             init()
             setWidgets()
