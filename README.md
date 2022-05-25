@@ -10,9 +10,17 @@
 Show a view listing all the Pokemon with their names (Bonus: show thumbnail image).
 Then when selecting a specific Pokemon display a ‘detail view’.
 
-# API
+# API :
+
 - :Listing - https://pokeapi.co/api/v2/pokemon
 - :Details - https://pokeapi.co/api/v2/pokemon/{id}/
+-
+### :hammer_and_wrench: Languages and Tools :
+
+
+
+
+
 
 
 
