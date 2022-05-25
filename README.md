@@ -14,7 +14,7 @@ Then when selecting a specific Pokemon display a ‘detail view’.
 
 - :Listing - https://pokeapi.co/api/v2/pokemon
 - :Details - https://pokeapi.co/api/v2/pokemon/{id}/
--
+- ddd
 ### :hammer_and_wrench: Languages and Tools :
 
 
