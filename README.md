@@ -7,7 +7,7 @@
 ### 👨‍🦲 About Pokemon App :
 
 ###  The task
-Show a view listing all the Pokemon with their names (Bonus: show thumbnail image).
+Show a Gridview  listing all the Pokemon with their names and thubmnail.
 Then when selecting a specific Pokemon display a ‘detail view’.
 
 
@@ -26,6 +26,8 @@ Then when selecting a specific Pokemon display a ‘detail view’.
 - Solid Principles
 - Retrofit
 - Glide 
+- Databinding
+- Livedata
 
 
 
