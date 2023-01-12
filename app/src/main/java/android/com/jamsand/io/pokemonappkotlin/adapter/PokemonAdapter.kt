@@ -43,6 +43,15 @@ class PokemonAdapter (private val onClickListener: OnClickListener):
         RecyclerView.ViewHolder(binding.root){
     }
 
+    // method for filetering our list items
+    fun filterList(filterList: ArrayList<Pokemon.PokemonArray>){
+        //below line is to add our filtered
+        //list in our course array list
+        pokemons = filterList
+        notifyDataSetChanged()
+
+    }
+
 
 
 }

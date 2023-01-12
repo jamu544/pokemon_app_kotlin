@@ -1,10 +1,12 @@
 package android.com.jamsand.io.pokemonappkotlin.view
 
+import android.com.jamsand.io.pokemonappkotlin.R
 import android.com.jamsand.io.pokemonappkotlin.repository.PokemonRepository
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModel
 import android.com.jamsand.io.pokemonappkotlin.viewmodel.PokemonListViewModelFactory
 import android.com.jamsand.io.pokemonappkotlin.adapter.PokemonAdapter
 import android.com.jamsand.io.pokemonappkotlin.databinding.ActivityMainBinding
+import android.com.jamsand.io.pokemonappkotlin.model.Pokemon
 import android.com.jamsand.io.pokemonappkotlin.network.PokemonListApiService
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON
 import android.com.jamsand.io.pokemonappkotlin.utilities.EXTRA_POKEMON_ID
@@ -18,6 +20,8 @@ import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -100,4 +104,45 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun filter(text: String){
+        //creating a new array list to filter our data
+        val filteredList = ArrayList<Pokemon.PokemonArray>()
+        //running a for loop to compare elements
+        for (item in adapter.pokemons){
+            //checking if the entered string matched with any item of our recyclerview view
+            if (item.name.contains(text)){
+                //if item is matched we are
+                // adding it to our filtertedList
+                filteredList.add(item)
+            }
+        }
+        if (filteredList.isEmpty()){
+            Toast.makeText(context,"No Data Found...",Toast.LENGTH_SHORT).show()
+        }
+        else {
+            adapter.filterList(filteredList)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        val searchItem = menu?.findItem(R.id.search)
+        val searchView = searchItem?.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                // inside on query text change method we are 
+                // calling a method to filter our recycler view.
+                filter(newText)
+                return false
+            }
+        })
+
+
+        return super.onCreateOptionsMenu(menu)
+    }
 }
